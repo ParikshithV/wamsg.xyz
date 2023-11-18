@@ -9,6 +9,7 @@ import {
   Modal,
   TextInput,
   FlatList,
+  Alert,
 } from "react-native-web";
 import { contTelCodes } from "./CountryTelCodes";
 
@@ -29,6 +30,11 @@ function App() {
   });
 
   const _openWhatsApp = async () => {
+    if (!(phnoInput.length > 3) && !phnoInput.match(/^(\+\d{1,3}[- ]?)?\d{10}$/)) {
+      alert("Please enter valid phone number to open WhatsApp");
+      return null;
+    }
+
     const baseUrl = `https://wa.me/`;
     const conpleteUrl = baseUrl + `${seltdTelCode.dial_code}${phnoInput}`;
     const supported = await Linking.canOpenURL(baseUrl);
@@ -80,7 +86,7 @@ function App() {
         />
       </View>
       <Text style={styles.text}>
-        {`Enter the phone number\nand tap on "Open WhatsApp"`}
+        {`Enter the phone number\nand tap on "Open WhatsApp" to start a conversation.`}
       </Text>
       <View style={styles.phnoInputVue}>
         <Pressable
