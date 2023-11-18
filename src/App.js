@@ -9,7 +9,6 @@ import {
   Modal,
   TextInput,
   FlatList,
-  Alert,
 } from "react-native-web";
 import { contTelCodes } from "./CountryTelCodes";
 
