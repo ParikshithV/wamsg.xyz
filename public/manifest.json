@@ -1,6 +1,7 @@
 {
   "short_name": "wamsg.xyz",
-  "name": "WhatsApp message without saving number to contacts",
+  "name": "Contactless messages",
+  "description": "Send WhatsApp messages without saving number to contacts",  
   "icons": [
     {
       "src": "favicon.ico",
