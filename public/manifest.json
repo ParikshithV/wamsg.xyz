@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "wamsg.xyz",
+  "name": "WhatsApp message without saving number to contacts",
   "icons": [
     {
       "src": "favicon.ico",
