@@ -11,8 +11,9 @@ import {
   FlatList,
 } from "react-native-web";
 import { contTelCodes } from "./CountryTelCodes";
+import wamsg from './assets/wamsg.xyz.png'
 
-const logoUri = `https://static.whatsapp.net/rsrc.php/v3/y7/r/DSxOAUB0raA.png`;
+// const logoUri = `https://static.whatsapp.net/rsrc.php/v3/y7/r/DSxOAUB0raA.png`;
 
 // function Link(props) {
 //   return <Text {...props} role="link" style={[styles.link, props.style]} />;
@@ -79,12 +80,14 @@ function App() {
       <View style={styles.header}>
         <Image
           accessibilityLabel="WhatsApp logo"
-          source={{ uri: logoUri }}
+          source={wamsg}
           resizeMode="contain"
           style={styles.logo}
         />
       </View>
-      <Text style={styles.text}>
+      <Text style={[styles.text, {
+        fontSize: '0.9rem'
+      }]}>
         {`Enter phone number and\nstart conversation on WhatsApp.\nIt's that simple!`}
       </Text>
       <View style={styles.phnoInputVue}>
@@ -169,7 +172,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logo: {
-    height: 50,
+    height: 85,
   },
   header: {
     padding: 20,
