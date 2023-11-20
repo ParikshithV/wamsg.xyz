@@ -30,7 +30,7 @@ function App() {
 
   const _openWhatsApp = async () => {
     if (!(phnoInput.length > 3) && !phnoInput.match(/^(\+\d{1,3}[- ]?)?\d{10}$/)) {
-      alert("Please enter valid phone number to open WhatsApp");
+      alert("Please enter a valid phone number to open WhatsApp with.");
       return null;
     }
 
@@ -85,7 +85,7 @@ function App() {
         />
       </View>
       <Text style={styles.text}>
-        {`Enter the phone number\nand tap on "Open WhatsApp" to start a conversation.`}
+        {`Enter phone number and\nstart conversation on WhatsApp.\nIt's that simple!`}
       </Text>
       <View style={styles.phnoInputVue}>
         <Pressable
@@ -113,7 +113,7 @@ function App() {
           .
         </Text> */}
       <Pressable style={buttonStyles.button} onPress={() => _openWhatsApp()}>
-        <Text style={buttonStyles.text}>Open WhatsApp</Text>
+        <Text style={buttonStyles.text}>Start Conversation</Text>
       </Pressable>
 
       <Modal
@@ -199,10 +199,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 10,
+    marginTop: 15,
     borderWidth: 2,
     borderRadius: 5,
     borderColor: "#969696",
+    marginHorizontal: 'auto'
   },
   telCodeVue: {
     alignItems: "center",
@@ -263,7 +264,7 @@ const buttonStyles = StyleSheet.create({
   button: {
     backgroundColor: "#25D366",
     borderRadius: 3,
-    margin: 15,
+    marginVertical: 15,
     marginTop: 25,
     height: 50,
     alignItems: "center",
