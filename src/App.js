@@ -11,7 +11,8 @@ import {
   FlatList,
 } from "react-native-web";
 import { contTelCodes } from "./CountryTelCodes";
-import wamsg from './assets/wamsg.xyz.png'
+import wamsg from "./assets/wamsg.xyz.png";
+import ChevronDnSvg from "./assets/chevronDn";
 
 // const logoUri = `https://static.whatsapp.net/rsrc.php/v3/y7/r/DSxOAUB0raA.png`;
 
@@ -21,6 +22,7 @@ import wamsg from './assets/wamsg.xyz.png'
 
 function App() {
   const [phnoInput, setphnoInput] = useState("");
+  const [msgInput, setMsgInput] = useState("");
   const [showCountryCodes, setShowCountryCodes] = useState(false);
   const [seltdTelCode, setSeltdTelCode] = useState({
     name: "India",
@@ -30,16 +32,22 @@ function App() {
   });
 
   const _openWhatsApp = async () => {
-    if (!(phnoInput.length > 3) && !phnoInput.match(/^(\+\d{1,3}[- ]?)?\d{10}$/)) {
+    if (
+      !(phnoInput.length > 3) &&
+      !phnoInput.match(/^(\+\d{1,3}[- ]?)?\d{10}$/)
+    ) {
       alert("Please enter a valid phone number to open WhatsApp with.");
       return null;
     }
 
     const baseUrl = `https://wa.me/`;
     const conpleteUrl = baseUrl + `${seltdTelCode.dial_code}${phnoInput}`;
+    const withOptText = conpleteUrl + `?text=${msgInput.replace(" ", "%20")}`;
+    const finalUrlMsg = msgInput?.length ? withOptText : conpleteUrl;
+    console.log("finalUrlMsg", finalUrlMsg);
     const supported = await Linking.canOpenURL(baseUrl);
     if (supported) {
-      await Linking.openURL(conpleteUrl);
+      await Linking.openURL(finalUrlMsg);
     } else {
       alert(
         `Oops.. Can't open WhatsApp on this device. Please trya different browser`
@@ -85,9 +93,14 @@ function App() {
           style={styles.logo}
         />
       </View>
-      <Text style={[styles.text, {
-        fontSize: '0.9rem'
-      }]}>
+      <Text
+        style={[
+          styles.text,
+          {
+            fontSize: "0.9rem",
+          },
+        ]}
+      >
         {`Enter phone number and\nstart conversation on WhatsApp.\nIt's that simple!`}
       </Text>
       <View style={styles.phnoInputVue}>
@@ -96,8 +109,9 @@ function App() {
           onPress={() => setShowCountryCodes(true)}
         >
           <Text style={{ fontWeight: 500 }}>
-            {`${seltdTelCode.flag} ${seltdTelCode.dial_code}`}
+            {`${seltdTelCode.flag} ${seltdTelCode.dial_code} `}
           </Text>
+          <ChevronDnSvg />
         </Pressable>
         <TextInput
           placeholder="Enter phone no."
@@ -106,6 +120,32 @@ function App() {
           onChangeText={setphnoInput}
           value={phnoInput}
           keyboardType="phone-pad"
+        />
+      </View>
+      <View
+        style={[
+          styles.phnoInputVue,
+          {
+            width: "100%",
+          },
+        ]}
+      >
+        <TextInput
+          multiline
+          placeholder="Optional message"
+          placeholderTextColor={"#969696"}
+          style={[
+            styles.textInput,
+            {
+              flex: 1,
+              margin: 5,
+              fontSize: "0.9rem",
+              minHeight: 65,
+            },
+          ]}
+          onChangeText={setMsgInput}
+          value={msgInput}
+          keyboardType="default"
         />
       </View>
       {/* <Text style={styles.text}>
@@ -206,9 +246,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 5,
     borderColor: "#969696",
-    marginHorizontal: 'auto'
+    marginHorizontal: "auto",
   },
   telCodeVue: {
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     height: 25,
@@ -223,6 +264,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginVertical: 20,
     width: "100%",
+    maxWidth: 450,
+    alignSelf: "center",
   },
   modalView: {
     marginHorizontal: 20,
@@ -272,6 +315,9 @@ const buttonStyles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
+    boxShadow: {
+      elevation: 5,
+    },
   },
   text: {
     color: "#fff",
