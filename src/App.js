@@ -13,6 +13,8 @@ import {
 import { contTelCodes } from "./CountryTelCodes";
 import wamsg from "./assets/wamsg.xyz.png";
 import ChevronDnSvg from "./assets/chevronDn";
+import ArrowRight from "./assets/ArrowRight";
+import CloseX from "./assets/CloseX";
 
 // const logoUri = `https://static.whatsapp.net/rsrc.php/v3/y7/r/DSxOAUB0raA.png`;
 
@@ -60,6 +62,11 @@ function App() {
     setShowCountryCodes(false);
   };
 
+  const _clearInputs = () => {
+    setphnoInput("");
+    setMsgInput("");
+  };
+
   const CountryRow = ({ item, index }) => {
     !index && console.log("CountryRow item", item);
     return (
@@ -93,14 +100,7 @@ function App() {
           style={styles.logo}
         />
       </View>
-      <Text
-        style={[
-          styles.text,
-          {
-            fontSize: "0.9rem",
-          },
-        ]}
-      >
+      <Text style={styles.text}>
         {`Enter phone number and\nstart conversation on WhatsApp.\nIt's that simple!`}
       </Text>
       <View style={styles.phnoInputVue}>
@@ -155,9 +155,30 @@ function App() {
           </Link>
           .
         </Text> */}
-      <Pressable style={buttonStyles.button} onPress={() => _openWhatsApp()}>
-        <Text style={buttonStyles.text}>Start Conversation</Text>
-      </Pressable>
+      <View style={buttonStyles.btnView}>
+        <Pressable
+          style={[
+            buttonStyles.button,
+            {
+              width: 45,
+              height: 45,
+              marginRight: 10,
+              borderColor: "#de6057",
+              backgroundColor: "#fceae8",
+            },
+          ]}
+          onPress={() => _clearInputs()}
+        >
+          <CloseX />
+        </Pressable>
+        <Pressable
+          style={[buttonStyles.button, { flex: 1 }]}
+          onPress={() => _openWhatsApp()}
+        >
+          <Text style={buttonStyles.text}>Start Conversation</Text>
+          <ArrowRight />
+        </Pressable>
+      </View>
 
       <Modal
         animationType="slide"
@@ -180,7 +201,6 @@ function App() {
               </Text>
               <Pressable
                 style={{
-                  outline: "none",
                   outlineStyle: "none",
                 }}
                 onPress={() => setShowCountryCodes(false)}
@@ -216,6 +236,7 @@ const styles = StyleSheet.create({
   },
   header: {
     padding: 20,
+    paddingBottom: 15,
   },
   text: {
     lineHeight: "1.5em",
@@ -235,7 +256,6 @@ const styles = StyleSheet.create({
     height: 35,
     fontSize: "1rem",
     fontWeight: 500,
-    outline: "none",
     outlineStyle: "none",
   },
   phnoInputVue: {
@@ -307,23 +327,31 @@ const styles = StyleSheet.create({
 });
 
 const buttonStyles = StyleSheet.create({
-  button: {
-    backgroundColor: "#25D366",
-    borderRadius: 3,
-    marginVertical: 15,
+  btnView: {
     marginTop: 25,
-    height: 50,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  button: {
+    backgroundColor: "#e3fceb",
+    borderColor: "#25D366",
+    borderWidth: 2,
+    borderRadius: 50,
+    height: 45,
     alignItems: "center",
     justifyContent: "center",
     boxShadow: {
       elevation: 5,
     },
+    flexDirection: "row",
   },
   text: {
-    color: "#fff",
+    color: "#3ac96c",
     fontWeight: "600",
-    padding: 8,
     textAlign: "center",
+    fontSize: "1rem",
+    marginRight: 10,
   },
 });
 
